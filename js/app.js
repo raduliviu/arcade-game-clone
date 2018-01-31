@@ -21,6 +21,12 @@ Enemy.prototype.update = function(dt) {
     if (this.x > 600) {
         this.x = -100;
     }
+    // This checks for the collision between enemy and player
+    if (this.x + 80 >= player.x && 
+        this.x - 40 <= player.x &&
+        this.y === player.y) {
+        player.reset();
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -35,12 +41,21 @@ var Player = function () {
     this.sprite = 'images/char-boy.png';
     this.x = 200;
     this.y = 380;
-
 };
+
 Player.prototype.update = function() {};
+
+
+// This puts the player back into his starting position, useful if he collides with an enemy or wins the game
+Player.prototype.reset = function() {
+    this.x = 200;
+    this.y = 380;
+};
+
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y)
 };
+
 Player.prototype.handleInput = function(key) {
     if (key == 'left' && this.x > 0) {
         this.x = this.x - 100;
@@ -59,8 +74,6 @@ Player.prototype.handleInput = function(key) {
 
 var allEnemies = [new Enemy()];
 var player = new Player();
-
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
