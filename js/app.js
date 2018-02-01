@@ -43,8 +43,12 @@ var Player = function () {
     this.y = 380;
 };
 
-Player.prototype.update = function() {};
-
+Player.prototype.update = function() {
+    // If the player reaches the water, he is then reset to his original position
+    if (player.y < 60) {
+        player.reset();
+    }
+};
 
 // This puts the player back into his starting position, useful if he collides with an enemy or wins the game
 Player.prototype.reset = function() {
