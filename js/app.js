@@ -62,7 +62,7 @@ function decreaseScore() {
 
 Player.prototype.update = function() {
     // If the player reaches the water, he is then reset to his original position
-    if (player.y < 60) {
+    if (this.y < 60) {
         player.reset();
         increaseScore();
     }
