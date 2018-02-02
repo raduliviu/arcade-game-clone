@@ -118,7 +118,7 @@ for (i = 0; i < 3; i++) {
 // I also wanted to add more than 3 enemies in total, here I am spawning enemies on a random row
 // This could also be tweaked for difficulty in the future
 for (i=0; i < 2; i++) {
-    allEnemies.push(new Enemy(enemyRows[Math.floor(Math.random() * enemyRows.length)], (getRandomIntInclusive(2, 6) * 50)));
+    allEnemies.push(new Enemy(enemyRows[Math.floor(Math.random() * enemyRows.length)], (getRandomIntInclusive(2, 6) * 30)));
 }
 
 // This listens for key presses and sends the keys to your
