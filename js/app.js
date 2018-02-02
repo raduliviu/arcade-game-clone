@@ -21,10 +21,10 @@ Enemy.prototype.update = function(dt) {
     if (this.x > 600) {
         this.x = -100;
     }
-    // This checks for the collision between enemy and player
-    if (this.x + 80 >= player.x && 
-        this.x - 40 <= player.x &&
-        this.y === player.y) {
+    // This checks for the collision between enemy and player - boy is w70 h 78 bug is w98 h68
+    if (this.x + 60 >= player.x &&
+        this.x - 35 <= player.x &&
+        this.y === player.y){
         player.reset();
         decreaseScore();
     }
