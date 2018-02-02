@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function(position, speed) {
+var Enemy = function(y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -8,7 +8,7 @@ var Enemy = function(position, speed) {
     this.sprite = 'images/enemy-bug.png';
     this.speed = speed;
     this.x = 0;
-    this.y = 60;
+    this.y = y;
 };
 
 // Update the enemy's position, required method for game
@@ -17,7 +17,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x = this.x + 100 * dt;
+    this.x += this.speed * dt;
     if (this.x > 600) {
         this.x = -100;
     }
@@ -60,6 +60,7 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y)
 };
 
+// This is to make the player move depending on the key pressed
 Player.prototype.handleInput = function(key) {
     if (key == 'left' && this.x > 0) {
         this.x = this.x - 100;
@@ -76,8 +77,31 @@ Player.prototype.handleInput = function(key) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var allEnemies = [new Enemy()];
+var allEnemies = [];
 var player = new Player();
+
+// Function to get a random integer between two values
+// Taken from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+}
+
+// An array of all the possible rows where enemies are allowed to spawn
+const enemyRows = [220, 140, 60];
+
+// I feel it was best to have every row populated by an enemy so that the game board is fully utilized
+// So here I am making one enemy per row 
+for (i = 0; i < 3; i++) {
+    allEnemies.push(new Enemy(enemyRows[i], (getRandomIntInclusive(2, 6) * 80)));
+}
+
+// I also wanted to add more than 3 enemies in total, here I am spawning enemies on a random row
+// This could also be tweaked for difficulty in the future
+for (i=0; i < 2; i++) {
+    allEnemies.push(new Enemy(enemyRows[Math.floor(Math.random() * enemyRows.length)], (getRandomIntInclusive(2, 6) * 50)));
+}
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
