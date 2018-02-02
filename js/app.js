@@ -60,13 +60,7 @@ function decreaseScore() {
     scoreBoard.innerHTML = scoreCounter;
 }
 
-Player.prototype.update = function() {
-    // If the player reaches the water, he is then reset to his original position
-    if (this.y < 60) {
-        player.reset();
-        increaseScore();
-    }
-};
+Player.prototype.update = function() {};
 
 // This puts the player back into his starting position, useful if he collides with an enemy or wins the game
 Player.prototype.reset = function() {
@@ -80,7 +74,10 @@ Player.prototype.render = function() {
 
 // This is to make the player move depending on the key pressed
 Player.prototype.handleInput = function(key) {
-    if (key == 'left' && this.x > 0) {
+    if (key == 'up' && this.y < 140) { // If the player reaches the water, he wins and is reset to start
+        player.reset();
+        increaseScore();
+    } else if (key == 'left' && this.x > 0) {
         this.x = this.x - 100;
     } else if (key == 'right' && this.x < 400) {
         this.x = this.x + 100;
