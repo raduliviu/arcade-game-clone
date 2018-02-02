@@ -26,6 +26,7 @@ Enemy.prototype.update = function(dt) {
         this.x - 40 <= player.x &&
         this.y === player.y) {
         player.reset();
+        decreaseScore();
     }
 };
 
@@ -43,10 +44,27 @@ var Player = function () {
     this.y = 380;
 };
 
+// Function to increase the scoreboard
+function increaseScore() {
+    const scoreBoard = document.getElementById('score');
+    let scoreCounter = scoreBoard.innerHTML;
+    scoreCounter++;
+    scoreBoard.innerHTML = scoreCounter;
+}
+
+// Function to decrease the scoreboard
+function decreaseScore() {
+    const scoreBoard = document.getElementById('score');
+    let scoreCounter = scoreBoard.innerHTML;
+    scoreCounter = 0;
+    scoreBoard.innerHTML = scoreCounter;
+}
+
 Player.prototype.update = function() {
     // If the player reaches the water, he is then reset to his original position
     if (player.y < 60) {
         player.reset();
+        increaseScore();
     }
 };
 
