@@ -75,7 +75,7 @@ Player.prototype.render = function() {
 // This is to make the player move depending on the key pressed
 Player.prototype.handleInput = function(key) {
     if (key == 'up' && this.y < 140) { // If the player reaches the water, he wins and is reset to start
-        player.reset();
+        this.reset();
         increaseScore();
     } else if (key == 'left' && this.x > 0) {
         this.x = this.x - 100;
